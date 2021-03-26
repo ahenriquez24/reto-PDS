@@ -16,8 +16,15 @@ public class AnswerPrice implements Question<Boolean> {
     @Override
     public Boolean answeredBy(Actor actor) {
         boolean result;
-        question=question.replace("₹","0");
-        double precio = Text.of(SearchProducts.VALOR).viewedBy(actor).asDouble();
+        try {
+            Thread.sleep(5*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String valor = Text.of(SearchProducts.VALOR).viewedBy(actor).asString();
+        valor = valor.replace("₹","0");
+        Double precio=Double.parseDouble(valor);
+        System.out.println("atrapa:"+precio);
         Double montobase = Double.parseDouble(question);
         if (montobase >= precio) {
             result = true;
